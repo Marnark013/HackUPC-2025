@@ -147,7 +147,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      cool_nobg_0: -3031983660542684073
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

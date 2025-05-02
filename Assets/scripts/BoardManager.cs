@@ -1,35 +1,57 @@
+using System;
 using UnityEngine;
 
 public class BoardManager : MonoBehaviour
 {
-    public static BoardManager Instance { get; private set; }
+    public int width;
+    public int height;
 
-    public int rows = 20;
-    public int columns = 10;
-
-    public GameObject[][] blockPrefabs;
-    private void Awake()
+    private Tile[,] tiles;
+    void Awake()
     {
-        if (Instance == null)
+        tiles = new Tile[width, height];
+    }
+
+    public void PlaceTile(Tile tilePrefab, Vector2Int position)
+    {
+        if (IsValidPosition(position) && tiles[position.x, position.y] == null)
         {
-            Instance = this;
-        }
-        else
-        {
-            Destroy(gameObject);
+            Tile newTile = Instantiate(tilePrefab, GridToWorld(position), Quaternion.identity);
+            newTile.Initialize(position);
+            tiles[position.x, position.y] = newTile;
         }
     }
 
-    private void initializeMatrix()
+
+    public Tile GetTileAt(Vector2Int position)
     {
-        blockPrefabs = new GameObject[rows][];
-        for (int i = 0; i < rows; i++)
+        if (IsValidPosition(position))
+            return tiles[position.x, position.y];
+        return null;
+    }
+
+
+    private bool IsValidPosition(Vector2Int pos)
+    {
+        return pos.x >= 0 && pos.x < width && pos.y >= 0 && pos.y < height;
+    }
+
+    private Vector3 GridToWorld(Vector2Int gridPos)
+    {
+        return new Vector3(gridPos.x, gridPos.y, 0);
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.green;
+
+        for (int x = 0; x < width; x++)
         {
-            blockPrefabs[i] = new GameObject[columns];
-            for (int j = 0; j < columns; j++)
+            for (int y = 0; y < height; y++)
             {
-                blockPrefabs[i][j] = null;
+                Gizmos.DrawWireCube(new Vector3(x, y, 0), new Vector3(1, 1, 0));
             }
         }
+
     }
 }
