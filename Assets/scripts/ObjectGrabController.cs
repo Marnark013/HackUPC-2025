@@ -5,7 +5,6 @@ using UnityEngine;
 [RequireComponent(typeof(Tile))]
 public class ObjectGrabController : MonoBehaviour
 {
-    public GameObject tilePrefab;
 
     [Header("Drag Settings")]
     [Tooltip("How fast the object chases the mouse (higher = snappier)")]
@@ -72,6 +71,15 @@ public class ObjectGrabController : MonoBehaviour
         }
     }
 
+    public void SetGrabbed()
+    {
+        _grabbed = true;
+        if (_snapRoutine != null)
+        {
+            StopCoroutine(_snapRoutine);
+            _snapRoutine = null;
+        }
+    }
     IEnumerator SmoothSnap()
     {
         Vector3 startPos = transform.position;

@@ -11,9 +11,10 @@ GameObject:
   - component: {fileID: 3828836179551548011}
   - component: {fileID: 1929985875458664552}
   - component: {fileID: 264601139144614241}
-  - component: {fileID: 551932049901616126}
+  - component: {fileID: 7834926187837209540}
+  - component: {fileID: 6746843152212190220}
   m_Layer: 0
-  m_Name: server_tile
+  m_Name: CPUTile_pre
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -135,7 +136,7 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 4.24, y: 4.19}
   m_EdgeRadius: 0
---- !u!114 &551932049901616126
+--- !u!114 &7834926187837209540
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -144,6 +145,23 @@ MonoBehaviour:
   m_GameObject: {fileID: 6349063184784714374}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e6ef2944601a1434c944d43251335c64, type: 3}
+  m_Script: {fileID: 11500000, guid: e46f4c1e2e8d59d4d86a1bf97709c5fe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &6746843152212190220
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6349063184784714374}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 09c21a0fed87d6c47ab84f12002af9ad, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tilePrefab: {fileID: 0}
+  smoothSpeed: 10
+  grabbable: 1
+  snapToGrid: 1
+  snapDuration: 0.2
