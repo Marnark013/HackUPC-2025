@@ -24,7 +24,7 @@ public class CpuManager : MonoBehaviour
         Cpus = Cpus.OrderBy(t => t.getComputingPower()).ToList();
     }
 
-    public bool addToCpu(int neededTrougthput)
+    public bool addToCpu(double neededTrougthput)
     {
         int left = 0;
         int right = Cpus.Count - 1;

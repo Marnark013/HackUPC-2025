@@ -1,12 +1,14 @@
 using UnityEngine;
+using System.Collections.Generic;
 
 public class Scheduler : MonoBehaviour
 {
     private PowerManager powerManager;
     public double availablePower; // = getGeneratedPower();
     public double neededPower; // = getPower();
-    public float routerSpeed; // = getSpeed(); 
-    public float taskSpeed; // = getSpeed();
+    public double routerSpeed; // = getSpeed(); 
+    public double taskSpeed; // = getSpeed();
+    
 
     private void Start(){
         powerManager = PowerManager.Instance;
@@ -21,14 +23,24 @@ public class Scheduler : MonoBehaviour
         return availablePower >= neededPower;
     }
 
+    public void AssignTaskToServer()
+    {
+        //Per fer 
+        Packet packet = LevelDataManager.Instance.PacketQueue.Dequeue();
+        routerSpeed = RouterManager.Instance.getBandwidth();
+        taskSpeed = packet.GetComputeSize();
+        CpuManager.Instance.addToCpu(taskSpeed);
+
+    }
+
     // Esta el router cardat?
     //if true fer un tractament més lent
     public bool IsRouterBottleneck()
-    {
-        // Pseudocoded, again cal fer get speed...
-        //POtser avisar que es necessiten mes routers o es fara un tractament
-        //mes lent
-        //hem dit de mirar una cua on guardem els paquets que arriben (en principi només un)
+    {   
+        Queue<Packet> q = LevelDataManager.Instance.PacketQueue;
+        Packet packet = q.Dequeue();
+        routerSpeed = RouterManager.Instance.getBandwidth();
+        taskSpeed = packet.GetComputeSize();
         return taskSpeed > routerSpeed;
     }
 
