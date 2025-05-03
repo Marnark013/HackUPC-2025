@@ -20,6 +20,7 @@ public class BoardManager : MonoBehaviour
     [HideInInspector] public int height;
 
     private Tile[,] tiles;
+    private Boolean[,] occupied;
 
     public static BoardManager Instance { get; private set; }
 
@@ -32,6 +33,7 @@ public class BoardManager : MonoBehaviour
         // --- singleton + array init ---
         if (Instance == null)
         {
+            occupied = new Boolean[width, height];
             Instance = this;
             width = mapData.width;
             height = mapData.height;
@@ -109,8 +111,11 @@ public class BoardManager : MonoBehaviour
         tile.Initialize(gridPos);
 
         tiles[gridPos.x, gridPos.y] = tile;
-
-        if (CheckForFourMatchingTiles(gridPos))
+        if (tile is CoolingTile coolingTile) {
+            CoolingManager man = CoolingManager.Instance;
+            man.setTile(coolingTile);
+        }
+        if(CheckForFourMatchingTiles(gridPos))
         {
             Debug.Log($"PlaceTile: Four matching tiles found at {gridPos}");
         }
@@ -185,7 +190,7 @@ public class BoardManager : MonoBehaviour
             }
         }
 
-        // No 2×2 block found
+        // No 2ï¿½2 block found
         return false;
     }
 

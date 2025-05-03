@@ -8,7 +8,7 @@ public abstract class Tile : MonoBehaviour
     public string Name;
     public int FixCost;
     public int price;
-    public double EnergyConcumption()
+    public virtual double EnergyConcumption()
     {
         return EnergyGenerator - NeededEnergy;
     }
