@@ -208,7 +208,7 @@ public class BoardManager : MonoBehaviour
     public Vector3 GridToWorld(Vector2Int gridPos)
         => new Vector3(gridPos.x, gridPos.y, 0f);
 
-    private void OnDrawGizmos()
+    /*private void OnDrawGizmos()
     {
         Gizmos.color = Color.green;
 
@@ -232,5 +232,5 @@ public class BoardManager : MonoBehaviour
                 }
             }
         }
-}
+    }*/
 }

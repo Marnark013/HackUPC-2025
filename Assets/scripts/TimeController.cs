@@ -14,6 +14,7 @@ public class TimeController : MonoBehaviour
 
 
     [SerializeField] private float elapsedTime;
+    [SerializeField] private float dayTimer;
     [SerializeField] private float weekTimer;
 
     public event Action<float> OnTick;
@@ -25,6 +26,12 @@ public class TimeController : MonoBehaviour
     {
         get => elapsedTime;
         private set => elapsedTime = value;
+    }
+
+    public float DayTimer
+    {
+        get => dayTimer;
+        private set => dayTimer = value;
     }
 
     public float WeekTimer
@@ -60,6 +67,7 @@ public class TimeController : MonoBehaviour
             float delta = Time.deltaTime * GameManager.Instance.gameSpeed;
 
             ElapsedTime += delta;
+            DayTimer += delta;
             WeekTimer += delta;
 
             OnTimeUpdated?.Invoke(ElapsedTime);
@@ -69,6 +77,11 @@ public class TimeController : MonoBehaviour
             {
                 OnTick?.Invoke(_tickInterval);
                 _tickAccumulator -= _tickInterval;
+            }
+
+            if (DayTimer >= weekDuration/7f)
+            {
+                DayTimer -= weekDuration/7f;
             }
 
             if (WeekTimer >= weekDuration)
