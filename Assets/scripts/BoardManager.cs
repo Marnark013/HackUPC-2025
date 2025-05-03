@@ -12,7 +12,6 @@ public class BoardManager : MonoBehaviour
 
     public static BoardManager Instance { get; private set; }
 
-
     void Awake()
     {
         if (Instance == null)
