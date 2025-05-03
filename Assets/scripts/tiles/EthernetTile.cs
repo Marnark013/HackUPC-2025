@@ -1,8 +1,14 @@
+using UnityEngine;
+
 public class EthernetTile : Tile
 {
-    public double bandwith;
+
+    [Header("Parametres de la tile d'internet")]
+    [SerializeField] private double maxBandwidth;
     public override void Tick()
     {
 
     }
+    public double getMaxBandwidth() => maxBandwidth;
+   
 }

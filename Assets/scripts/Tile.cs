@@ -2,14 +2,25 @@ using UnityEngine;
 
 public abstract class Tile : MonoBehaviour
 {
+
     public Vector2Int GridPosition { get; private set; }
-    public double NeededEnergy;
-    public string Name;
-    public int FixCost;
-    public int price;
+    [Header("Settings generals d'una Tile")]
+    [SerializeField] private double baseEnergy;
+    [SerializeField] private string tileName;
+    [SerializeField] private int operationCost;
+    [SerializeField] private int basePrice;
+    [SerializeField] private float temperature;
+
+
+
+    public double getBaseEnergy() => baseEnergy;
+    public string getTileName() => tileName;
+    public int getOperationCost() => operationCost;
+    public int getBasePrice() => basePrice;
+    public float getTemperature() => temperature;
     public virtual double EnergyConcumption()
     {
-        return NeededEnergy;
+        return baseEnergy;
     }
     
     public virtual void Initialize(Vector2Int gridPosition)
