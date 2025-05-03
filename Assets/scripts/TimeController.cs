@@ -10,6 +10,7 @@ public class TimeController : MonoBehaviour
 
     [SerializeField] private float elapsedTime;
     [SerializeField] private float weekTimer;
+    public static TimeController Instance { get; private set; }
 
     public float ElapsedTime
     {
@@ -26,6 +27,20 @@ public class TimeController : MonoBehaviour
     public UnityEvent<float> OnTimeUpdated;
 
     public UnityEvent OnWeekFinished;
+
+
+    public void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+
+    }
 
     private void Update()
     {
@@ -65,5 +80,10 @@ public class TimeController : MonoBehaviour
     public int GetCurrentWeek()
     {
         return Mathf.FloorToInt(ElapsedTime / weekDuration);
+    }
+
+    public float GetWeekDuration()
+    {
+        return weekDuration;
     }
 }
