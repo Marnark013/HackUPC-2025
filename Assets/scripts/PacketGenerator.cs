@@ -76,6 +76,6 @@ public class PacketGenerator : MonoBehaviour
         float _computeSize = _totalWork * (1-r); // Scale the compute size
 
         Packet p = new(_storageSize, _computeSize, persistent); // Create a new packet 
-        GameManager.Instance.PacketQueue.Enqueue(p);
+        LevelDataManager.Instance.PacketQueue.Enqueue(p);
     }
 }
