@@ -57,6 +57,19 @@ public class BoardManager : MonoBehaviour
         return true;
     }
 
+    public void removeTile(Vector2Int gridPos)
+    {
+        if (IsValidPosition(gridPos))
+        {
+            Tile tile = tiles[gridPos.x, gridPos.y];
+            if (tile != null)
+            {
+                tiles[gridPos.x, gridPos.y] = null;
+            }
+        }
+    }
+
+
 
     public bool CheckForFourMatchingTiles(Vector2Int gridPos)
     {

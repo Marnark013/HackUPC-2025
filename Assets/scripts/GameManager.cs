@@ -6,6 +6,16 @@ public class GameManager : MonoBehaviour
 
     public static GameObject Board;
 
+    public float gameSpeed = 1f;
+
+    public float totalPowerDraw = 0f;
+
+    public float totalCoolingDraw = 0f;
+
+    public float totalNetworkDraw = 0f;
+
+    private bool _inGame = false;
+
     private void Awake()
     {
         if (Instance == null)
@@ -24,11 +34,21 @@ public class GameManager : MonoBehaviour
         Board = GameObject.Find("Board");
         if (Board == null)
         {
-            Debug.LogError("Board not found in the scene.");
+            _inGame = false;
         }
         else
         {
-            Debug.Log("Board found: " + Board.name);
+            _inGame = true;
+        }
+    }
+
+
+    private void FixedUpdate()
+    {
+        if (_inGame)
+        {
+            ;
         }
     }
 }
+

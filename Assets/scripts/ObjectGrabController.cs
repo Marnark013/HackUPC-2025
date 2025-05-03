@@ -41,7 +41,9 @@ public class ObjectGrabController : MonoBehaviour
 
     void OnMouseUp()
     {
+
         _grabbed = false;
+        Vector2Int _oldPos = this.GetComponent<Tile>().GridPosition;
 
         Vector2Int gridPos = new Vector2Int(
             Mathf.RoundToInt(transform.position.x),
@@ -50,15 +52,20 @@ public class ObjectGrabController : MonoBehaviour
 
         bool placed = BoardManager.Instance.PlaceTile(this.GetComponent<Tile>(), gridPos);
 
+
         if (!placed)
         {
             Destroy(gameObject);
         }
         else if (snapToGrid)
         {
-            // If you still want a smooth snap visual
             _snapTarget = BoardManager.Instance.GridToWorld(gridPos);
             _snapRoutine = StartCoroutine(SmoothSnap());
+            BoardManager.Instance.removeTile(_oldPos);
+        }
+        else
+        {
+            BoardManager.Instance.removeTile(_oldPos);
         }
     }
 
