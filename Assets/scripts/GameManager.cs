@@ -8,13 +8,9 @@ public class GameManager : MonoBehaviour
 
     public float gameSpeed = 1f;
 
-    public float totalPowerDraw = 0f;
-
-    public float totalCoolingDraw = 0f;
-
-    public float totalNetworkDraw = 0f;
-
     private bool _inGame = false;
+
+    public bool _isPaused = false;
 
     private void Awake()
     {
@@ -29,26 +25,30 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    private void Start()
+    public void StartLevel() 
     {
-        Board = GameObject.Find("Board");
-        if (Board == null)
-        {
-            _inGame = false;
-        }
-        else
-        {
-            _inGame = true;
-        }
+        _inGame = true;
+    } 
+
+    public void EndLevel()
+    {
+        _inGame = false;
     }
-
-
-    private void FixedUpdate()
+    public bool IsInGame()
     {
-        if (_inGame)
-        {
-            ;
-        }
+        return _inGame;
+    }
+    public void PauseGame()
+    {
+        _isPaused = true;
+    }
+    public void ResumeGame()
+    {
+        _isPaused = false;
+    }
+    public bool IsPaused()
+    {
+        return _isPaused;
     }
 }
 
