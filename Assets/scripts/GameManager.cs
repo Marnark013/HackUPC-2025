@@ -1,8 +1,13 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; private set; }
+
+
+    [SerializeField] public Queue<Packet> PacketQueue;
 
     public static GameObject Board;
 
@@ -17,6 +22,7 @@ public class GameManager : MonoBehaviour
         if (Instance == null)
         {
             Instance = this;
+            PacketQueue = new();
             DontDestroyOnLoad(gameObject);
         }
         else

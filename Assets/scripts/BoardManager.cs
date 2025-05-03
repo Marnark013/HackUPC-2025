@@ -9,6 +9,7 @@ public class BoardManager : MonoBehaviour
     public int height;
 
     private Tile[,] tiles;
+    private Boolean[,] occupied;
 
     public static BoardManager Instance { get; private set; }
 
@@ -20,6 +21,7 @@ public class BoardManager : MonoBehaviour
     {
         if (Instance == null)
         {
+            occupied = new Boolean[width, height];
             tiles = new Tile[width, height];
             Instance = this;
         }
