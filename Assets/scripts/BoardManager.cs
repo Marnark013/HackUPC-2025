@@ -3,12 +3,16 @@ using UnityEngine;
 
 public class BoardManager : MonoBehaviour
 {
+    public TileSelector TileSelector;   
+
     public int width;
     public int height;
 
     private Tile[,] tiles;
 
     public static BoardManager Instance { get; private set; }
+
+
     void Awake()
     {
         if (Instance == null)
@@ -76,41 +80,62 @@ public class BoardManager : MonoBehaviour
         Tile centerTile = GetTileAt(gridPos);
         if (centerTile == null)
         {
-            Debug.LogWarning($"CheckForFourMatchingTiles: No tile at position {gridPos}");
+            Debug.LogWarning($"CheckForFourMatchingTiles: No tile at {gridPos}");
             return false;
         }
 
-        Type centerTileType = centerTile.GetType();
-        int matchingCount = 0;
+        Type type = centerTile.GetType();
 
-        // Define all 8 directions (cardinal + diagonal)
-        Vector2Int[] directions = new Vector2Int[]
+        Vector2Int[] squareOrigins = new Vector2Int[]
         {
-        new Vector2Int(0, 1),   // Up
-        new Vector2Int(0, -1),  // Down
-        new Vector2Int(-1, 0),  // Left
-        new Vector2Int(1, 0),   // Right
-        new Vector2Int(-1, 1),  // Top-left
-        new Vector2Int(1, 1),   // Top-right
-        new Vector2Int(-1, -1), // Bottom-left
-        new Vector2Int(1, -1)   // Bottom-right
+        new Vector2Int(0,  0),  
+        new Vector2Int(-1, 0),  
+        new Vector2Int(0, -1),  
+        new Vector2Int(-1, -1)  
         };
 
-        foreach (Vector2Int direction in directions)
+        foreach (var originOffset in squareOrigins)
         {
-            Vector2Int neighborPos = gridPos + direction;
-            if (IsValidPosition(neighborPos))
+            Vector2Int origin = gridPos + originOffset;
+
+            var p1 = origin;
+            var p2 = origin + Vector2Int.right;
+            var p3 = origin + Vector2Int.up;
+            var p4 = origin + Vector2Int.one;
+
+            if (!IsValidPosition(p1) || !IsValidPosition(p2) ||
+                !IsValidPosition(p3) || !IsValidPosition(p4))
+                continue;
+
+            Tile t1 = GetTileAt(p1);
+            Tile t2 = GetTileAt(p2);
+            Tile t3 = GetTileAt(p3);
+            Tile t4 = GetTileAt(p4);
+
+            // Check that none are null and all are the same type
+            if (t1 != null && t2 != null && t3 != null && t4 != null
+                && t1.GetType() == type
+                && t2.GetType() == type
+                && t3.GetType() == type
+                && t4.GetType() == type)
             {
-                Tile neighborTile = GetTileAt(neighborPos);
-                if (neighborTile != null && neighborTile.GetType() == centerTileType)
-                {
-                    matchingCount++;
-                }
+                tiles[p2.x, p2.y] = t1;
+                tiles[p3.x, p3.y] = t1;
+                tiles[p4.x, p4.y] = t1;
+                Destroy(t2.gameObject);
+                Destroy(t3.gameObject);
+                Destroy(t4.gameObject);
+
+                t1.transform.position += new Vector3(0.5f, 0.5f, 0);
+                t1.transform.localScale *= 2;
+                return true;
             }
         }
-        Debug.Log($"Matching tiles found: {matchingCount}");
-        return matchingCount >= 3;
+
+        // No 2×2 block found
+        return false;
     }
+
 
     public Tile GetTileAt(Vector2Int position)
     {
@@ -141,6 +166,18 @@ public class BoardManager : MonoBehaviour
                 Gizmos.DrawWireCube(new Vector3(x, y, 0), new Vector3(1, 1, 0));
             }
         }
-
-    }
+        
+        if(tiles != null)
+        {
+            Gizmos.color = Color.red;
+            foreach (Tile t in tiles)
+            {
+                if (t != null)
+                {
+                    Vector3 pos = t.transform.position;
+                    Gizmos.DrawWireCube(pos, Vector3.one);
+                }
+            }
+        }
+}
 }
