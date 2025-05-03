@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
+using System;
 public class ScoreManager : MonoBehaviour
 {
     public static ScoreManager Instance;
@@ -9,7 +10,7 @@ public class ScoreManager : MonoBehaviour
     [SerializeField] private Text scoreText;
     [SerializeField] private int dataNeeded;
 
-   
+    
 
 
     private void Awake()

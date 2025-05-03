@@ -57,6 +57,10 @@ public class BoardManager : MonoBehaviour
 
         // Keep track in the array
         tiles[gridPos.x, gridPos.y] = tile;
+        if (tile is CoolingTile coolingTile) {
+            CoolingManager man = CoolingManager.Instance;
+            man.setTile(coolingTile);
+        }
         if(CheckForFourMatchingTiles(gridPos))
         {
             Debug.Log($"PlaceTile: Four matching tiles found at {gridPos}");

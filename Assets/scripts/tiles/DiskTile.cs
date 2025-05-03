@@ -10,11 +10,11 @@ public class DiskTile : Tile
     {
 
     }
-
-
+    public double getMaxData()
+    {
+        return MaxData;
+    }
 }
-
-
 
 public enum DisKTypes
 {
