@@ -10,7 +10,7 @@ public class BoardManager : MonoBehaviour
 
     private Tile[,] tiles;
 
-    public static BoardManager Instance { get; private set; }
+    public static BoardManager Instance { get; private set; };
 
     void Awake()
     {
