@@ -21,7 +21,7 @@ public class CpuManager : MonoBehaviour
     public void addCpu(CPUTile tile)
     {
         Cpus.Add(tile);
-        Cpus = Cpus.OrderBy(t => t.getFreeTrowhtput()).ToList();
+        Cpus = Cpus.OrderBy(t => t.getComputingPower()).ToList();
     }
 
     public bool addToCpu(int neededTrougthput)
@@ -32,7 +32,7 @@ public class CpuManager : MonoBehaviour
         while (left <= right)
         {
             int mid = (left + right) / 2;
-            double midPower = Cpus[mid].getFreeTrowhtput();
+            double midPower = Cpus[mid].getComputingPower();
 
             if (midPower == neededTrougthput)
             {
