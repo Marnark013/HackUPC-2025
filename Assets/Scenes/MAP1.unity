@@ -247,7 +247,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 2
-  m_BackGroundColor: {r: 0.99607843, g: 0.98039216, b: 0.8784314, a: 0}
+  m_BackGroundColor: {r: 0.99215686, g: 0.9607843, b: 0.7647059, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -1034,57 +1034,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 763737655}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1773299034
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1773299036}
-  - component: {fileID: 1773299035}
-  m_Layer: 0
-  m_Name: PacketGenerator
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1773299035
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1773299034}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d621f2e01c0483449be8b5634037fbb1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  packetSendProbability: 0.1
-  tickingCooldown: 10
-  scalingFactor: 1
-  persistentProbability: 0.5
-  totalWork: 2048
-  workVariance: 256
-  splitBias: 0
---- !u!4 &1773299036
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1773299034}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 4.8816957, y: 2.3833346, z: -9.912389}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1848759961
 GameObject:
   m_ObjectHideFlags: 0
@@ -1116,6 +1065,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 63eb57323ff0c514688183db8f878e48, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mapData: {fileID: 11400000, guid: 0bd9291f1cb00c44fb06886c53bf884a, type: 2}
+  cellPrefab: {fileID: 7451724056638237835, guid: 926b80c6e8ec6064a979f7b5b3b4c7c2, type: 3}
   TileSelector: {fileID: 0}
   width: 10
   height: 10
@@ -1161,7 +1112,6 @@ MonoBehaviour:
   weekDuration: 3
   elapsedTime: 0
   weekTimer: 0
-  ticksPerSecond: 20
   OnTimeUpdated:
     m_PersistentCalls:
       m_Calls: []
@@ -1358,4 +1308,3 @@ SceneRoots:
   - {fileID: 1848759963}
   - {fileID: 763737655}
   - {fileID: 2104667777}
-  - {fileID: 1773299036}

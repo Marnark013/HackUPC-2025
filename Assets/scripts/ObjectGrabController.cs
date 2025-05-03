@@ -61,11 +61,11 @@ public class ObjectGrabController : MonoBehaviour
         {
             _snapTarget = BoardManager.Instance.GridToWorld(gridPos);
             _snapRoutine = StartCoroutine(SmoothSnap());
-            BoardManager.Instance.removeTile(_oldPos);
+            BoardManager.Instance.RemoveTile(_oldPos);
         }
         else
         {
-            BoardManager.Instance.removeTile(_oldPos);
+            BoardManager.Instance.RemoveTile(_oldPos);
         }
     }
 

@@ -1,15 +1,24 @@
+using System;
 using UnityEngine;
 using UnityEngine.Events;
 
 [DisallowMultipleComponent]
 public class TimeController : MonoBehaviour
 {
+    // accumulator for our custom tick
+    private float _tickAccumulator;
+    private float _tickInterval;
+
     [Tooltip("Duration of one in-game week, in real-time seconds.")]
     [SerializeField] private float weekDuration = 60f;
 
 
     [SerializeField] private float elapsedTime;
     [SerializeField] private float weekTimer;
+
+    public event Action<float> OnTick;
+    [Tooltip("How many ticks do we want per second?")]
+    [SerializeField] private float ticksPerSecond = 20f;
     public static TimeController Instance { get; private set; }
 
     public float ElapsedTime
@@ -34,6 +43,8 @@ public class TimeController : MonoBehaviour
         if (Instance == null)
         {
             Instance = this;
+            _tickInterval = 1f / ticksPerSecond;
+            _tickAccumulator = 0f;
         }
         else
         {
@@ -53,6 +64,13 @@ public class TimeController : MonoBehaviour
 
             OnTimeUpdated?.Invoke(ElapsedTime);
 
+            _tickAccumulator += delta;
+            while (_tickAccumulator >= _tickInterval)
+            {
+                OnTick?.Invoke(_tickInterval);
+                _tickAccumulator -= _tickInterval;
+            }
+
             if (WeekTimer >= weekDuration)
             {
                 WeekTimer -= weekDuration;
@@ -65,6 +83,7 @@ public class TimeController : MonoBehaviour
     {
         ElapsedTime = 0f;
         WeekTimer = 0f;
+        _tickAccumulator = 0f;
         OnTimeUpdated?.Invoke(ElapsedTime);
     }
 
