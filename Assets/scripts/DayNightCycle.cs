@@ -17,10 +17,13 @@ public class DayNightCycle : MonoBehaviour
 
     private float dayLength; // in seconds
 
-    private void Awake()
+    private void Start()
     {
+
         if (timeController == null)
             timeController = TimeController.Instance;
+
+        timeController.OnTick += HandleTick;
 
         // Compute how long one in-game day lasts
         dayLength = timeController.GetWeekDuration() / 7f;
@@ -31,10 +34,7 @@ public class DayNightCycle : MonoBehaviour
         overlayImage.color = dayNightGradient.Evaluate(0f);
     }
 
-    private void OnEnable()
-    {
-        timeController.OnTick += HandleTick;
-    }
+
 
     private void OnDisable()
     {
