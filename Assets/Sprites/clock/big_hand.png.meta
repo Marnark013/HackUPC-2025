@@ -1,14 +1,10 @@
 fileFormatVersion: 2
-<<<<<<< HEAD
-guid: 1b774a49ae95dfd4293f87bf6cefa754
-=======
-guid: e847d1532f38db84f9e71fe9a4586849
->>>>>>> 1d998c4d91c1b0d312e1ea1cd8240aa53626a993
+guid: 87ed20939a0d0624ca85300495606748
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -610587283573027033
-    second: clock_base_0
+      213: -5948464179481488844
+    second: big_hand_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -104,13 +100,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: clock_base_0
+      name: big_hand_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
-        width: 500
-        height: 500
+        x: 223
+        y: 232
+        width: 55
+        height: 221
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -119,8 +115,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 72f4242c912c687f0800000000000000
-      internalID: -610587283573027033
+      spriteID: 432ded6585fc27da0800000000000000
+      internalID: -5948464179481488844
       vertices: []
       indices: 
       edges: []
