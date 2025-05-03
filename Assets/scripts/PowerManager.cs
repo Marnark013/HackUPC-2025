@@ -8,8 +8,8 @@ public class PowerManager : MonoBehaviour
     {
         BoardManager man = BoardManager.Instance;
         Tile[,] tiles = man.getTiles();
-        int width = tiles.GetLength(0);  // Number of columns (x)
-        int height = tiles.GetLength(1); // Number of rows (y)
+        int width = tiles.GetLength(0);  
+        int height = tiles.GetLength(1); 
         double NeededPower = 0;
         for (int x = 0; x < width; x++)
         {
@@ -17,7 +17,6 @@ public class PowerManager : MonoBehaviour
             {
                 Tile tile = tiles[x, y];
                 NeededPower+= tile.EnergyConcumption();
-                // Do something with tile
             }
         }
         return NeededPower;
