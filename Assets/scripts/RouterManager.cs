@@ -27,7 +27,7 @@ public class RouterManager : MonoBehaviour
         routers.RemoveAll(item => item == null);
         foreach (EthernetTile tile in routers)
         {
-            Bandwidth += tile.getBandwith();
+            Bandwidth += tile.getMaxBandwidth();
         }
         return Bandwidth;
     }
