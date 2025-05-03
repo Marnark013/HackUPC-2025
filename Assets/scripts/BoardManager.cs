@@ -7,9 +7,19 @@ public class BoardManager : MonoBehaviour
     public int height;
 
     private Tile[,] tiles;
+
+    public static BoardManager Instance { get; private set; }
     void Awake()
     {
-        tiles = new Tile[width, height];
+        if (Instance == null)
+        {
+            tiles = new Tile[width, height];
+            Instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
     }
 
     public void PlaceTile(Tile tilePrefab, Vector2Int position)

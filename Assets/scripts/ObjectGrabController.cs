@@ -2,12 +2,16 @@ using System.Collections;
 using UnityEngine;
 
 [RequireComponent(typeof(Collider2D))]
+[RequireComponent(typeof(Tile))]
 public class ObjectGrabController : MonoBehaviour
 {
+    public GameObject tilePrefab;
+
     [Header("Drag Settings")]
     [Tooltip("How fast the object chases the mouse (higher = snappier)")]
     public float smoothSpeed = 10f;
     public bool grabbable = true;
+    
 
     [Header("Snap Settings")]
     [Tooltip("Whether to snap to integer grid on release")]
@@ -29,7 +33,6 @@ public class ObjectGrabController : MonoBehaviour
     {
         if (!grabbable) return;
         _grabbed = true;
-
         if (_snapRoutine != null)
         {
             StopCoroutine(_snapRoutine);
@@ -40,9 +43,10 @@ public class ObjectGrabController : MonoBehaviour
     void OnMouseUp()
     {
         _grabbed = false;
+        Vector3 p = transform.position;
+        Vector2Int pos = new Vector2Int(Mathf.RoundToInt(p.x), Mathf.RoundToInt(p.y));
         if (snapToGrid)
         {
-            Vector3 p = transform.position;
             _snapTarget = new Vector3(
                 Mathf.Round(p.x),
                 Mathf.Round(p.y),
