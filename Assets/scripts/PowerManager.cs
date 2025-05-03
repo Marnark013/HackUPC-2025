@@ -1,9 +1,37 @@
 using UnityEngine;
-
+using System.Collections.Generic;
 public class PowerManager : MonoBehaviour
 {
 
+    public static PowerManager Instance { get; private set; }
+    private List<ElectricityTile> electricityTiles;
+    void Awake()
+    {
+        if (Instance == null)
+        {
+            electricityTiles = new List<ElectricityTile>();
+            Instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
 
+    public void SetElectricuityTile(ElectricityTile tile) {
+        electricityTiles.Add(tile);
+    }
+
+    public double getGeneratedPower()
+    {
+        double generatedPower =0;
+        electricityTiles.RemoveAll(item => item == null);
+        foreach (ElectricityTile tile in electricityTiles)
+        {
+            generatedPower += tile.getGeneratedEnergy();
+        }
+        return generatedPower;
+    }
     double coumputePowerNeeded()
     {
         BoardManager man = BoardManager.Instance;

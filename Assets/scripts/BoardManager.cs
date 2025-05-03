@@ -111,9 +111,14 @@ public class BoardManager : MonoBehaviour
         tile.Initialize(gridPos);
 
         tiles[gridPos.x, gridPos.y] = tile;
-        if (tile is CoolingTile coolingTile) {
+        if (tile is CoolingTile coolingTile)
+        {
             CoolingManager man = CoolingManager.Instance;
             man.setTile(coolingTile);
+        }
+        else if (tile is ElectricityTile elTile) {
+            PowerManager man = PowerManager.Instance;
+            man.SetElectricuityTile(elTile);
         }
         if(CheckForFourMatchingTiles(gridPos))
         {
