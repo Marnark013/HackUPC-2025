@@ -163,6 +163,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 637c74d6761f64244a7f0527393d5552, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gameSpeed: 1
+  totalPowerDraw: 0
+  totalCoolingDraw: 0
+  totalNetworkDraw: 0
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -1106,11 +1110,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 019443453c8a4ab468433c372e34b46c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  electricityPrefab: {fileID: 0}
-  coolingPrefab: {fileID: 0}
-  networkPrefab: {fileID: 0}
+  electricityPrefab: {fileID: 8766133274421886001, guid: acf5851328988894993bfd4c1445bbbe, type: 3}
+  coolingPrefab: {fileID: 3348948699015598314, guid: e2be12ebc799ac74598b715e39758e66, type: 3}
+  networkPrefab: {fileID: 5973844620148697565, guid: e1a1aea5dad52354daa0683398e5178c, type: 3}
   processingPrefab: {fileID: 7834926187837209540, guid: f18ad30f8517ced46a372457535bd6c8, type: 3}
-  storagePrefab: {fileID: 0}
+  storagePrefab: {fileID: 5739267599553338712, guid: 99102edb8d132a147b897d90acdd84a7, type: 3}
 --- !u!4 &2104667777
 Transform:
   m_ObjectHideFlags: 0
