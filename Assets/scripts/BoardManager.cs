@@ -3,12 +3,24 @@ using UnityEngine;
 
 public class BoardManager : MonoBehaviour
 {
-    public TileSelector TileSelector;   
+    [Header("Grid Settings")]
+    [Tooltip("Defines which cells are playable (1) or blocked (0)")]
+    public MapData mapData;
 
-    public int width;
-    public int height;
+    [Tooltip("Prefab used to render each cell; must have a SpriteRenderer")]
+    public GameObject cellPrefab;
+
+    private Color playableColor = new(254f / 255f, 250f / 255f, 224f / 255f, 1f);
+    private Color blockedColor = new(253f / 255f, 245f / 255f, 195f / 255f, 1f);
+
+    [Header("Tile Placement")]
+    public TileSelector TileSelector;
+
+    [HideInInspector] public int width;
+    [HideInInspector] public int height;
 
     private Tile[,] tiles;
+    private Boolean[,] occupied;
 
     public static BoardManager Instance { get; private set; }
 
@@ -16,16 +28,55 @@ public class BoardManager : MonoBehaviour
     {
         return tiles;
     }
-    void Awake()
+    private void Awake()
     {
+        // --- singleton + array init ---
         if (Instance == null)
         {
-            tiles = new Tile[width, height];
+            occupied = new Boolean[width, height];
             Instance = this;
+            width = mapData.width;
+            height = mapData.height;
+            tiles = new Tile[width, height];
+
+            RenderBackgroundGrid();
         }
         else
         {
             Destroy(gameObject);
+        }
+    }
+
+    private void RenderBackgroundGrid()
+    {
+        if (mapData == null || cellPrefab == null)
+        {
+            Debug.LogWarning("BoardManager: missing MapData or cellPrefab.");
+            return;
+        }
+
+        for (int y = 0; y < mapData.height; y++)
+        {
+            for (int x = 0; x < mapData.width; x++)
+            {
+                // read 1 or 0
+                int val = mapData.GetCell(x, y);
+
+                // instantiate at grid position
+                Vector3 worldPos = GridToWorld(new Vector2Int(x, y));
+                GameObject go = Instantiate(cellPrefab, worldPos, Quaternion.identity, transform);
+
+                // apply color
+                var sr = go.GetComponent<SpriteRenderer>();
+                if (sr != null)
+                {
+                    sr.color = (val == 1) ? playableColor : blockedColor;
+                }
+                else
+                {
+                    Debug.LogWarning("cellPrefab needs a SpriteRenderer");
+                }
+            }
         }
     }
 
@@ -49,11 +100,16 @@ public class BoardManager : MonoBehaviour
             return false;
         }
 
+        if (mapData.GetCell(gridPos.x, gridPos.y) == 0)
+        {
+            Debug.LogWarning($"PlaceTile: cell {gridPos} is blocked.");
+            return false;
+        }
+
         Vector3 worldPos = GridToWorld(gridPos);
         tile.transform.position = worldPos;
         tile.Initialize(gridPos);
 
-        // Keep track in the array
         tiles[gridPos.x, gridPos.y] = tile;
         if (tile is CoolingTile coolingTile)
         {
@@ -67,21 +123,16 @@ public class BoardManager : MonoBehaviour
         if(CheckForFourMatchingTiles(gridPos))
         {
             Debug.Log($"PlaceTile: Four matching tiles found at {gridPos}");
-            // Handle the four matching tiles logic here
         }
 
         return true;
     }
 
-    public void removeTile(Vector2Int gridPos)
+    public void RemoveTile(Vector2Int gridPos)
     {
-        if (IsValidPosition(gridPos))
+        if (IsValidPosition(gridPos) && tiles[gridPos.x, gridPos.y] != null)
         {
-            Tile tile = tiles[gridPos.x, gridPos.y];
-            if (tile != null)
-            {
-                tiles[gridPos.x, gridPos.y] = null;
-            }
+            tiles[gridPos.x, gridPos.y] = null;
         }
     }
 
@@ -144,10 +195,9 @@ public class BoardManager : MonoBehaviour
             }
         }
 
-        // No 2×2 block found
+        // No 2ï¿½2 block found
         return false;
     }
-
 
     public Tile GetTileAt(Vector2Int position)
     {
@@ -156,16 +206,12 @@ public class BoardManager : MonoBehaviour
         return null;
     }
 
-
     public bool IsValidPosition(Vector2Int pos)
-    {
-        return pos.x >= 0 && pos.x < width && pos.y >= 0 && pos.y < height;
-    }
+        => pos.x >= 0 && pos.x < width
+        && pos.y >= 0 && pos.y < height;
 
     public Vector3 GridToWorld(Vector2Int gridPos)
-    {
-        return new Vector3(gridPos.x, gridPos.y, 0);
-    }
+        => new Vector3(gridPos.x, gridPos.y, 0f);
 
     private void OnDrawGizmos()
     {
