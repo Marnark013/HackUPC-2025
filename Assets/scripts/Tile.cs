@@ -17,5 +17,30 @@ public abstract class Tile : MonoBehaviour
         GridPosition = gridPosition;
     }
 
+    void Start()
+    {
+        if (TimeController.Instance != null)
+        {
+            TimeController.Instance.OnTick += HandleTick;
+        }
+        else
+        {
+            Debug.LogError("TimeController instance is null. Make sure it is initialized before PacketGenerator.");
+        }
+    }
+
+    private void OnDisable()
+    {
+        if (TimeController.Instance != null)
+        {
+            TimeController.Instance.OnTick -= HandleTick;
+        }
+    }
+
+    private void HandleTick(float delta)
+    {
+        Tick();
+    }
+
     public abstract void Tick(); // Called every frame or game update
 }
