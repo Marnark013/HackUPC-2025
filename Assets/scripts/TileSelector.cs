@@ -40,12 +40,23 @@ public class TileSelector : MonoBehaviour
     {
         if (_selectedPrefab != null)
         {
-            Tile newTile = Instantiate(_selectedPrefab, transform.position, Quaternion.identity);
-            newTile.Initialize(new Vector2Int(0, 0)); // Replace with actual grid position
+            Vector3 mousePosition = Input.mousePosition;
+            mousePosition.z = Camera.main.nearClipPlane;
+            Vector3 worldPosition = Camera.main.ScreenToWorldPoint(mousePosition);
+            int gridX = Mathf.RoundToInt(worldPosition.x);
+            int gridY = Mathf.RoundToInt(worldPosition.y);
+            Vector2Int gridPosition = new Vector2Int(gridX, gridY);
+
+            Tile newTile = Instantiate(_selectedPrefab, new Vector3(gridX, gridY, 0), Quaternion.identity);
+            newTile.Initialize(gridPosition);
+
             ObjectGrabController grabController = newTile.GetComponent<ObjectGrabController>();
             if (grabController != null)
             {
-                grabController.SetGrabbed(); // Make sure the tile is grabbable
+                if (grabController.grabbable)
+                {
+                    grabController.SetGrabbed();
+                }
             }
             else
             {
