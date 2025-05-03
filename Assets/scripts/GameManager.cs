@@ -6,9 +6,6 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; private set; }
 
-
-    [SerializeField] public Queue<Packet> PacketQueue;
-
     public static GameObject Board;
 
     public float gameSpeed = 1f;
@@ -22,7 +19,6 @@ public class GameManager : MonoBehaviour
         if (Instance == null)
         {
             Instance = this;
-            PacketQueue = new();
             DontDestroyOnLoad(gameObject);
         }
         else

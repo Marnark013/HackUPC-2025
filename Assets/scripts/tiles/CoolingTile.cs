@@ -1,22 +1,22 @@
+using UnityEngine;
+
 public class CoolingTile : Tile
 {
-    public double RefrigerationPower;
-    private int rank;
-    private int MaxRank;
-    private double coolingEficienci;
+
+    [Header("Parametres de la tile de refrigeració")]
+    [SerializeField] private double refrigerationCapacity;
+    [SerializeField] private int range;
+    [SerializeField] private double coolingEfficiency;
 
     public int getRank()
     {
-        return rank;
+        return range;
     }
-    public double getCoolingEficienci()
-    {
-        return coolingEficienci;
-    }
-    public void upgradeRank()
-    {
-        if(MaxRank> rank) ++rank;
-    }
+    
+    public double getRefrigerationCapacity() => refrigerationCapacity;
+    public double getCoolingEfficiency() => coolingEfficiency;
+    public int getRange() => range;
+
 
     public override void Tick()
     {

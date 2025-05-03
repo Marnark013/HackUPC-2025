@@ -1,22 +1,25 @@
+using Unity.VisualScripting;
+using UnityEngine;
+
 public class DiskTile : Tile
 {
-    public double MaxData;
-    public double ActualData;
-    public int Units;
-    public DisKTypes Type;
-    public int SpaceProvided;
+
+    [Header("Parametres de la tile de disc")]
+    [SerializeField] private double maxCapacity;
+    [SerializeField] private double currentUsage;
+    [SerializeField] private double ioSpeed;
+    [SerializeField] private DisKTypes type;
 
     public override void Tick()
     {
 
     }
-    public double getMaxData()
-    {
-        return MaxData;
-    }
+    public double getMaxCapacity() => maxCapacity;
+    public double getCurrentUsage() => currentUsage;
+    public double getIoSpeed() => ioSpeed;
 }
 
-public enum DisKTypes
+    public enum DisKTypes
 {
     HDD,
     SSD,

@@ -1,37 +1,27 @@
+using UnityEngine;
+
 public class CPUTile : Tile
 {
-    public double Eficiency;
-    private double TrowhtputUsed;
-    private double PercapacityUsed;
-    private double cpuVariableEnergyConsume;
-    public double SpaceNeeded;
-    private double trowhtput;
-    public int units;
-    public CpuUsage Usage;
+
+    [Header("Parametres de la tile de computo")]
+    [SerializeField] private double efficiency;
+    [SerializeField] private double percapacityUsed;
+    [SerializeField] private double cpuVariableEnergyConsume;
+    [SerializeField] private double computingPower;
+
     public override void Tick()
     {
 
     }
 
-    public double getTrowhtputUsed()
-    {
-        return TrowhtputUsed;
-    }
-    public double getFreeTrowhtput()
-    {
-        return trowhtput - TrowhtputUsed;
-    }
     public override double EnergyConcumption()
     {
-        double energy = PercapacityUsed * cpuVariableEnergyConsume;
+        double energy = percapacityUsed * cpuVariableEnergyConsume;
         return base.EnergyConcumption() + energy;
     }
-    public double getTrowhtput()
-    {
-        return trowhtput;
-    }
+    public double getComputingPower() => computingPower;
 }
-public enum CpuUsage
+    public enum CpuUsage
 {
     Virtualitzation,
     AiTraining

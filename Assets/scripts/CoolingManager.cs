@@ -25,7 +25,7 @@ public class CoolingManager : MonoBehaviour
         foreach (CoolingTile tile in coolingTiles)
         {
                 int rank = tile.getRank();
-                double coolingEficienci = tile.getCoolingEficienci();
+                double coolingEficienci = tile.getCoolingEfficiency();
                 //fer tota la logica de refredar
         }
 
