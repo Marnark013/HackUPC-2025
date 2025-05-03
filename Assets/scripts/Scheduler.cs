@@ -2,11 +2,17 @@ using UnityEngine;
 
 public class Scheduler : MonoBehaviour
 {
-    public float availablePower; // = getGeneratedPower();
-    public float neededPower; // = getPower();
+    private PowerManager powerManager;
+    public double availablePower; // = getGeneratedPower();
+    public double neededPower; // = getPower();
     public float routerSpeed; // = getSpeed(); 
     public float taskSpeed; // = getSpeed();
 
+    private void Start(){
+        powerManager = PowerManager.Instance;
+        availablePower = powerManager.getGeneratedPower();
+        neededPower = powerManager.coumputePowerNeeded();
+    }
     // Comprova si power es suficient per el que necessiten els servers
     //if true, s'apaga tot(espavil)
     public bool IsPowerEnough()

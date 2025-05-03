@@ -32,7 +32,7 @@ public class PowerManager : MonoBehaviour
         }
         return generatedPower;
     }
-    double coumputePowerNeeded()
+    public double coumputePowerNeeded()
     {
         BoardManager man = BoardManager.Instance;
         Tile[,] tiles = man.getTiles();
