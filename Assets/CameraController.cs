@@ -33,13 +33,19 @@ public class CameraController : MonoBehaviour
     private void Awake()
     {
         cam = GetComponent<Camera>();
-        targetPosition = transform.position;
         // Initialize zoom target from current camera setting
         targetZoom = cam.orthographic
             ? cam.orthographicSize
             : cam.fieldOfView;
     }
 
+    private void Start()
+    {
+        float center_x = BoardManager.Instance.width / 2f;
+        float center_y = BoardManager.Instance.height / 2f;
+        transform.position = new Vector3(center_x, center_y, -10f);
+        targetPosition = transform.position;
+    }
     private void Update()
     {
         HandlePanning();

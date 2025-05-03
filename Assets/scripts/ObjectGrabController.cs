@@ -88,6 +88,11 @@ public class ObjectGrabController : MonoBehaviour
     public void SetGrabbed()
     {
         _grabbed = true;
+        StopSnapCoroutine();
+    }
+
+    public void StopSnapCoroutine()
+    {
         if (_snapRoutine != null)
         {
             StopCoroutine(_snapRoutine);
